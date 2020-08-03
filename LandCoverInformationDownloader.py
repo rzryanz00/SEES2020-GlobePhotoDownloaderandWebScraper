@@ -2,6 +2,8 @@ from bs4 import BeautifulSoup
 import json
 import requests
 import csv
+import io
+import PIL.Image as Image
 
 # input date range. Follow this format: 'YYYY-MM-DD'
 # start date:
@@ -20,7 +22,7 @@ with open(csvname, 'r') as userID_file:
   with open('GlobeInformation.csv', 'w', newline = '') as InfoCSVFile:
     NewCSVWriter = csv.writer(InfoCSVFile, delimiter = ',')
     #Write the headers into the new csv file
-    NewCSVWriter.writerow(['userid', 'longitude', 'latitude', 'siteID', 'Measured Date', 'protocol', 'MUC', 'UpURL', 'DownURL', 'EastURL', 'WestURL', 'NorthURL', 'SouthURL'])
+    NewCSVWriter.writerow(['userid', 'longitude', 'latitude', 'siteID', 'Measured Date', 'protocol', 'MUC', 'UpURL', 'DownURL', 'EastURL', 'WestURL', 'NorthURL', 'SouthURL', 'Up Image Size', 'Down Image Size', 'East Image Size', 'West Image Size', 'North Image Size', 'South Image Size'])
 
     #loop through user IDs in inputted csv file
     for line in userID_reader:
@@ -52,7 +54,47 @@ with open(csvname, 'r') as userID_file:
         WestURL = landcover['data']['landcoversWestPhotoUrl']
         NorthURL = landcover ['data']['landcoversNorthPhotoUrl']
         SouthURL = landcover['data']['landcoversSouthPhotoUrl']
-        NewCSVWriter.writerow([userid, longitude, latitude, siteId, measuredDate, protocol, MUC, UpURL, DownURL, EastURL, WestURL, NorthURL, SouthURL])
+
+        #get image sizes
+
+        #Up
+        GetBytesfromURL = requests.get(UpURL)
+        image_bytes = GetBytesfromURL.content
+        image = Image.open(io.BytesIO(image_bytes))
+        Uwidth, Uheight = image.size
+
+        #Down
+        GetBytesfromURL = requests.get(NorthURL)
+        image_bytes = GetBytesfromURL.content
+        image = Image.open(io.BytesIO(image_bytes))
+        Dwidth, Dheight = image.size
+
+        #North
+        GetBytesfromURL = requests.get(NorthURL)
+        image_bytes = GetBytesfromURL.content
+        image = Image.open(io.BytesIO(image_bytes))
+        Nwidth, Nheight = image.size
+
+        #South
+        GetBytesfromURL = requests.get(NorthURL)
+        image_bytes = GetBytesfromURL.content
+        image = Image.open(io.BytesIO(image_bytes))
+        Swidth, Sheight = image.size
+
+        #East
+        GetBytesfromURL = requests.get(EastURL)
+        image_bytes = GetBytesfromURL.content
+        image = Image.open(io.BytesIO(image_bytes))
+        Ewidth, Eheight = image.size
+
+        #West
+        GetBytesfromURL = requests.get(WestURL)
+        image_bytes = GetBytesfromURL.content
+        image = Image.open(io.BytesIO(image_bytes))
+        Wwidth, Wheight = image.size
+
+        #write the information to the csv file
+        NewCSVWriter.writerow([userid, longitude, latitude, siteId, measuredDate, protocol, MUC, UpURL, DownURL, EastURL, WestURL, NorthURL, SouthURL, str(Uwidth) +'x'+str(Uheight), str(Dwidth) +'x'+str(Dheight), str(Ewidth) +'x'+str(Eheight), str(Wwidth) +'x'+str(Wheight), str(Nwidth) +'x'+str(Nheight), str(Swidth) +'x'+str(Sheight)])
 
 
 
