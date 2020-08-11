@@ -12,6 +12,7 @@ EndDate = '2020-07-23'
 # 1. make sure column in csv is labeled "userid"
 # 2. make sure to place the csv file into the same file
 # 3. what is the name of the csv file? *keep quotes
+# Warning: Some computers hide the '.csv' ending of the file name. Adding an extra .csv will cause the program to fail.
 csvname = 'useridlist.csv'
 
 #open the csv file containing the User IDs
