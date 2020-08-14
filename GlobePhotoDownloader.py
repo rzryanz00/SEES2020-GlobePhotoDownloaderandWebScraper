@@ -1,3 +1,9 @@
+#First install four packages:
+# 1. Pillow
+# 2. BeautifulSoup4
+# 3. requests
+# 4. lxml
+
 from bs4 import BeautifulSoup
 import json
 import requests
