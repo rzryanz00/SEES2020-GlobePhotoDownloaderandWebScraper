@@ -29,7 +29,7 @@ with open(csvname, 'r') as userID_file:
   with open('GlobeInformation.csv', 'w', newline = '') as InfoCSVFile:
     NewCSVWriter = csv.writer(InfoCSVFile, delimiter = ',')
     #Write the headers into the new csv file
-    NewCSVWriter.writerow(['userid', 'longitude', 'latitude', 'siteID', 'Measured Date', 'protocol', 'MUC', 'UpURL', 'DownURL', 'EastURL', 'WestURL', 'NorthURL', 'SouthURL', 'Up Image Size', 'Down Image Size', 'East Image Size', 'West Image Size', 'North Image Size', 'South Image Size'])
+    NewCSVWriter.writerow(['userid', 'longitude', 'latitude', 'siteName', 'Measured Date', 'protocol', 'MUC', 'UpURL', 'DownURL', 'EastURL', 'WestURL', 'NorthURL', 'SouthURL', 'Up Image Size', 'Down Image Size', 'East Image Size', 'West Image Size', 'North Image Size', 'South Image Size'])
 
     #loop through user IDs in inputted csv file
     for line in userID_reader:
@@ -49,10 +49,10 @@ with open(csvname, 'r') as userID_file:
 
       #pick out the needed information and store them
       for landcover in data['results']:
-        siteId = landcover['siteId']
+        siteName = landcover['siteName']
         measuredDate = landcover['measuredDate']
-        latitude = landcover['latitude']
-        longitude = landcover['longitude']
+        latitude = landcover['data']['landcoversMeasurementLatitude']
+        longitude = landcover['data']['landcoversMeasurementLongitude']
         protocol = landcover['protocol']
         MUC = landcover['data']['landcoversMucCode']
         UpURL = landcover['data']['landcoversUpwardPhotoUrl']
@@ -101,8 +101,7 @@ with open(csvname, 'r') as userID_file:
         Wwidth, Wheight = image.size
 
         #write the information to the csv file
-        NewCSVWriter.writerow([userid, longitude, latitude, siteId, measuredDate, protocol, MUC, UpURL, DownURL, EastURL, WestURL, NorthURL, SouthURL, str(Uwidth) +'x'+str(Uheight), str(Dwidth) +'x'+str(Dheight), str(Ewidth) +'x'+str(Eheight), str(Wwidth) +'x'+str(Wheight), str(Nwidth) +'x'+str(Nheight), str(Swidth) +'x'+str(Sheight)])
-
+        NewCSVWriter.writerow([userid, longitude, latitude, siteName, measuredDate, protocol, MUC, UpURL, DownURL, EastURL, WestURL, NorthURL, SouthURL, str(Uwidth) +'x'+str(Uheight), str(Dwidth) +'x'+str(Dheight), str(Ewidth) +'x'+str(Eheight), str(Wwidth) +'x'+str(Wheight), str(Nwidth) +'x'+str(Nheight), str(Swidth) +'x'+str(Sheight)])
 
 
 
