@@ -20,8 +20,11 @@ EndDate = '2020-07-23'
 # 3. what is the name of the csv file? *keep quotes
 # Warning: Some computers hide the '.csv' ending of the file name. Adding an extra .csv will cause the program to fail.
 csvname = 'useridlist.csv'
-#Input your desired Image Resolution. ImageResolution = (Width in Pixels),(height in Pixels)
-ImageResolution = 1920, 1080
+#If no, then input your desired Image Resolution. ImageResolution = (Width in Pixels),(height in Pixels)
+#Type "'original'" if you do not wish to change the image resolution
+#Example: ImageResolution = 'original'
+#Example: ImageResolution = 1920, 1080
+ImageResolution = 'original'
 #Would you like to start with UserID or SiteName? Set the variable to 0 for UserID and 1 for SiteName
 NameStart = 0
 
@@ -81,8 +84,12 @@ with open(csvname, 'r') as userID_file:
         #get the original size of the image
         width, height = image.size
 
-        #resize the image using the user designated resolution
-        ResizedImage = image.resize(ImageResolution, Image.ANTIALIAS)
+        #Determing whether or not to resize the images
+        if ImageResolution == 'original':
+          ResizedImage = image
+        else:
+          #resize the image using the user designated resolution
+          ResizedImage = image.resize(ImageResolution, Image.ANTIALIAS)
 
         #Change the order of UserID or SiteName depending on user preference
         if NameStart == 0:
@@ -107,7 +114,10 @@ with open(csvname, 'r') as userID_file:
         image_bytes = GetBytesfromURL.content
         image = Image.open(io.BytesIO(image_bytes))
         width, height = image.size
-        ResizedImage = image.resize(ImageResolution, Image.ANTIALIAS)
+        if ImageResolution == 'original':
+          ResizedImage = image
+        else:
+          ResizedImage = image.resize(ImageResolution, Image.ANTIALIAS)
         ResizedImage.save('GLOBEObserver_' + str(FirstinName) + '_' + str(SecondinName) + '_' + protocol + '_' + str(latitude) + '_' + str(
           longitude) + '_' + str(measuredDate) + '_' + str(MUC) + '_' + 'West' + '_' + str(width) + 'x' + str(
           height) + '_' + str(ImageResolution) + '.jpg')
@@ -123,7 +133,10 @@ with open(csvname, 'r') as userID_file:
         image_bytes = GetBytesfromURL.content
         image = Image.open(io.BytesIO(image_bytes))
         width, height = image.size
-        ResizedImage = image.resize(ImageResolution, Image.ANTIALIAS)
+        if ImageResolution == 'original':
+          ResizedImage = image
+        else:
+          ResizedImage = image.resize(ImageResolution, Image.ANTIALIAS)
         ResizedImage.save('GLOBEObserver_' + str(FirstinName) + '_' + str(SecondinName) + '_' + protocol + '_' + str(latitude) + '_' + str(
           longitude) + '_' + str(measuredDate) + '_' + str(MUC) + '_' + 'North' + '_' + str(width) + 'x' + str(
           height) + '_' + str(ImageResolution) + '.jpg')
@@ -139,7 +152,10 @@ with open(csvname, 'r') as userID_file:
         image_bytes = GetBytesfromURL.content
         image = Image.open(io.BytesIO(image_bytes))
         width, height = image.size
-        ResizedImage = image.resize(ImageResolution, Image.ANTIALIAS)
+        if ImageResolution == 'original':
+          ResizedImage = image
+        else:
+          ResizedImage = image.resize(ImageResolution, Image.ANTIALIAS)
         ResizedImage.save('GLOBEObserver_' + str(FirstinName) + '_' + str(SecondinName) + '_' + protocol + '_' + str(latitude) + '_' + str(
           longitude) + '_' + str(measuredDate) + '_' + str(MUC) + '_' + 'South' + '_' + str(width) + 'x' + str(
           height) + '_' + str(ImageResolution) + '.jpg')
@@ -155,7 +171,10 @@ with open(csvname, 'r') as userID_file:
         image_bytes = GetBytesfromURL.content
         image = Image.open(io.BytesIO(image_bytes))
         width, height = image.size
-        ResizedImage = image.resize(ImageResolution, Image.ANTIALIAS)
+        if ImageResolution == 'original':
+          ResizedImage = image
+        else:
+          ResizedImage = image.resize(ImageResolution, Image.ANTIALIAS)
         ResizedImage.save('GLOBEObserver_' + str(FirstinName) + '_' + str(SecondinName) + '_' + protocol + '_' + str(latitude) + '_' + str(
           longitude) + '_' + str(measuredDate) + '_' + str(MUC) + '_' + 'Upwards' + '_' + str(width) + 'x' + str(
           height) + '_' + str(ImageResolution) + '.jpg')
@@ -171,7 +190,10 @@ with open(csvname, 'r') as userID_file:
         image_bytes = GetBytesfromURL.content
         image = Image.open(io.BytesIO(image_bytes))
         width, height = image.size
-        ResizedImage = image.resize(ImageResolution, Image.ANTIALIAS)
+        if ImageResolution == 'original':
+          ResizedImage = image
+        else:
+          ResizedImage = image.resize(ImageResolution, Image.ANTIALIAS)
         ResizedImage.save('GLOBEObserver_' + str(FirstinName) + '_' + str(SecondinName) + '_' + protocol + '_' + str(latitude) + '_' + str(
           longitude) + '_' + str(measuredDate) + '_' + str(MUC) + '_' + 'Downwards' + '_' + str(width) + 'x' + str(
           height) + '_' + str(ImageResolution) + '.jpg')
